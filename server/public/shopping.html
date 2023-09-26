@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Your Cart</title>
+</head>
+<body>
+    <header id="main">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="image-holder">
+                        <img src="pics/logo.png" alt="Website main logo">
+                    </div>
+                    <h2 class="title">MultiFood</h2>
+                </div>
+                <ul class="links">
+                    <a href="index.html"><li>Home</li></a>
+                    <a href="Menu.html"><li>Menu</li></a>
+                    <a href="reserve.html"><li>Book</li></a>
+                    <a href="Contact.html"><li>Contact</li></a>
+                    <a href="shopping.html"><li><i class="fa-solid fa-cart-shopping"></i><p>0</p></li></a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="shopping-cart">
+        <div class="topPad" id="topPad">
+            <div class="head">
+                <h2>My Cart</h2>
+            </div>
+            <div class="items">
+                <div class="shop-item" id="shop-item">
+                    <div class="part" id="part">
+                        <div class="full" id="full">
+                            <div class="myimg" id="myimg">
+
+                            </div>
+                        </div>
+                        <div class="info" id="info">
+                            <div class="spe" id="spe">
+
+                            </div>
+                            <div class="desc" id="desc">
+
+                            </div>
+                        </div>
+                        <div class="little-part">
+                            <label for="qt">Quantity: </label>
+                            <select name="qt" id="" value="2">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                                <option value="">5</option>
+                                <option value="">6</option>
+                                <option value="">7</option>
+                                <option value="">8</option>
+                                <option value="">9</option>
+                                <option value="">10</option>
+                            </select>
+                        </div>
+                        <div class="total" id="total">
+                            
+                            <div id="remove">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side-info" id="sideinfo">
+                    <div class="promo">
+                        <h6>Enter promo code</h6>
+                        <div class="set">
+                            <input type="text" placeholder="Promo Code">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </div>
+                    <div class="over-info">
+                        <span>Shipping Cost: </span>
+                        <span>TBD</span>
+                    </div>
+                    <div class="over-info">
+                        <span>Discount: </span>
+                        <span>-$0</span>
+                    </div>
+                    <div class="over-info">
+                        <span>Tax: </span>
+                        <span>TBD</span>
+                    </div>
+                    <div class="my-total over-info" id="mytotal">
+                        <span>Estimated Total</span>
+                        
+                    </div>
+                    <button class="checkout" type="button">checkout</button>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script>
+        const api_url ='http://localhost:3001/cart';
+
+      
+
+async function getData() {
+    const response = await fetch(api_url);
+    const data = await response.json();
+         
+    console.log(data);
+    console.log(data[0].menuItem);
+   
+    
+    data.forEach(element => {
+        console.log(element.menuItem.name);
+         
+        let sideInfo = document.getElementById('side-info');
+        let myTotal = document.getElementById('mytotal')
+        let totalspan = document.createElement('span');
+         totalspan.appendChild(document.createTextNode(`Total: ${element.menuItem.price * element.quantity}$`))
+
+
+
+        let shopItem = document.getElementById('shop-item')
+        let topPad = document.getElementById('topPad');
+
+        let part = document.getElementById('part');
+        let full = document.getElementById('full');
+         let info = document.getElementById('info');
+         //let divSpe = document.getElementById('spe');
+         let imgTarget = document.getElementById('myimg');
+         let speTarget = document.getElementById('spe');
+         let descTarget = document.getElementById('desc');
+         let total = document.getElementById('total')
+         
+         let remove = document.getElementById('remove');
+
+         let img = document.createElement('img');
+         img.src = `${element.menuItem.imageUrl}`
+         document.body.appendChild(img);
+
+         let spe = document.createElement('h3'); 
+         spe.classList.add('shop-title');
+         spe.appendChild(document.createTextNode(`${element.menuItem.name}`));
+
+         let speDiv = document.createElement('div');
+         speDiv.classList.add('item-text');
+         speDiv.appendChild(document.createTextNode(`${element.menuItem.description}`));
+        console.log(speDiv);
+
+         let p1 = document.createElement('p');
+         p1.appendChild(document.createTextNode(`Total: ${element.menuItem.price * element.quantity}$`))
+         console.log(p1);
+
+         let p = document.createElement('p');
+         p.appendChild(document.createTextNode("Each"));
+
+         let span = document.createElement('span');
+         span.appendChild(document.createTextNode(`$${element.menuItem.price}`));
+
+                    // create the form element
+                    const form = document.createElement('form');
+
+                    // set the form attributes
+                    form.method = 'POST';
+                    form.action = `/cart/remove/${element._id}`;
+
+                    // create the hidden input field
+                    const userIdInput = document.createElement('input');
+                    userIdInput.type = 'hidden';
+                    userIdInput.name = 'id';
+                    userIdInput.value = `${element._id}`;
+                    console.log(userIdInput.value);
+                    // create the submit button
+                    const submitButton = document.createElement('input');
+                    submitButton.type = 'submit';
+                    submitButton.value = 'Remove Item';
+
+                    // append the input field and submit button to the form
+                    form.appendChild(userIdInput);
+                    form.appendChild(submitButton);
+
+
+                    form.addEventListener('submit', (event) => {
+                                event.preventDefault();
+
+                                // Send form data to server
+                                       
+                                        // Get the selected menu item and quantity
+                                        var cartItemId = `${element._id}`;
+                                        console.log(cartItemId);
+                                        
+
+                                        // Make an API call to add the item to the cart
+                                        var url = `http://localhost:3001/cart/remove/${cartItemId}`;
+                                        var Data = { cartItemId: cartItemId };
+                                        fetch(url, {
+                                            method: "POST",
+                                            headers: {
+                                            "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify(Data)
+                                        })
+                                            .then(res => location.reload())
+                                            //.then (data =>{
+                                              //  console.log(data)
+                                                //window.location.href = data.redirectUrl} )
+                                            .catch(err => console.log(err));
+                                    }); 
+                    // append the form to the document
+                    document.body.appendChild(form);
+                    remove.appendChild(form);
+
+         imgTarget.appendChild(img);
+         speTarget.appendChild(spe);
+         speTarget.appendChild(speDiv);
+         descTarget.appendChild(p);
+         descTarget.appendChild(span);
+
+         
+         info.appendChild(speTarget);
+         info.appendChild(descTarget);
+         full.appendChild(imgTarget);
+         total.appendChild(p1);
+         total.appendChild(remove);
+        // divSpe.appendChild(speTarget);
+         part.appendChild(info);
+         part.appendChild(full);
+         part.appendChild(total);
+         shopItem.appendChild(part);
+                 myTotal.appendChild(totalspan);
+         sideInfo.appendChild(myTotal);
+        
+
+
+
+
+
+
+
+    });
+    
+}
+getData();
+    </script>
+    <script src="js/shoppingCart.js"></script>
+    <script src="js/menuOverview.js"></script>
+</body>
+</html>

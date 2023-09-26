@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Reserve Table</title>
+</head>
+<body>
+    <header id="main">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="image-holder">
+                        <img src="pics/logo.png" alt="Website main logo">
+                    </div>
+                    <h2 class="title">MultiFood</h2>
+                </div>
+                <ul class="links">
+                    <a href="index.html"><li>Home</li></a>
+                    <a href="Menu.html"><li>Menu</li></a>
+                    <a href="reserve.html"><li>Book</li></a>
+                    <a href="Contact.html"><li>Contact</li></a>
+                    <a href="shopping.html"><li><i class="fa-solid fa-cart-shopping"></i><p>0</p></li></a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="banner">
+        <h2>BOOK YOUR TABLE NOW</h2>
+        <div class="card-container">
+            <div class="card-img">
+                <img src="images/card-img.jpg" alt="">
+            </div>
+            <div class="card-content">
+                <h3>Reservation</h3>
+                <form>
+                    <div class="form-row">
+                        <select name="days">
+                            <option value="day-select">Select day</option>
+                            <option value="Sunday">Sunday</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                        </select>
+                        <select name="hours">
+                            <option value="select-hour">Select hour</option>
+                            <option value="select-hour">10:00</option>
+                            <option value="select-hour">12:00</option>
+                            <option value="select-hour">14:00</option>
+                            <option value="select-hour">16:00</option>
+                            <option value="select-hour">18:00</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Full Name">
+                        <input type="text" placeholder="Phone Number">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" placeholder="How many Persones?" min="1">
+                        <input type="submit" value="BOOK TABLE">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Menu</title>
+</head>
+<body>
+    <header id="main">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="image-holder">
+                        <img src="pics/logo.png" alt="Website main logo">
+                    </div>
+                    <h2 class="title">MultiFood</h2>
+                </div>
+                <ul class="links">
+                    <a href="index.html"><li>Home</li></a>
+                    <a href="Menu.html"><li>Menu</li></a>
+                    <a href="reserve.html"><li>Book</li></a>
+                    <a href="Contact.html"><li>Contact</li></a>
+                    <a href="shopping.html"><li><i class="fa-solid fa-cart-shopping"></i><p>0</p></li></a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="main2">
+		<div class="section-title">
+            <h2>Our Menu</h2>
+        </div>
+        <div class="break-ice">
+            <img src="images/menu.jpg" alt="menu image">
+        </div>
+        <div class="Menu">
+            <div class="menu-column" id="c1">
+                <h4>Breakfast :</h4>
+                
+                
+
+            </div>
+            <div class="menu-column" id="c2">
+                <h4>Launch :</h4>
+                
+ 
+            </div>
+            <div class="menu-column" id="c3">
+                <h4>Dinner :</h4>
+                
+               
+            </div>
+        </div>
+        <div class="overview-container" id="a">
+
+        </div>
+    </div>
+    <footer>
+        <div class="logo">
+            <img src="pics/logo.png" alt="logo">
+        </div>
+        <div class="social-media">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="adr">
+            <h3 class="adres-title">Our Address</h3>
+            <p>ROLLA STREET - Dubai - United Arab Emirates</p>
+        </div>
+        <div class="coords">
+            <span>Phone: +213675360735</span>
+            <span>Email: support@MultiFood.net</span>
+        </div>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.413479792205!2d55.29460950000001!3d25.256672599999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f433dae68197d%3A0xf9f52f9b08eb5f53!2sMULTIFOOD%20RESTAURANT%20%26%20CAFETERIA%20LLC!5e0!3m2!1sfr!2sdz!4v1683583710392!5m2!1sfr!2sdz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <span class="final">&copyMultiFood | Made By Abderrahmane, Taki & Achraf</span>
+    </footer>   
+
+    <script>
+        const api_url ='http://localhost:3001/menu';
+
+       async function getData() {
+           const response = await fetch(api_url);
+           const data = await response.json();
+                
+           console.log(data);
+           console.log(data[0].name);
+           
+           let i = 0;
+           data.forEach(element => {
+
+                let target = document.getElementById(`${element.type}`);
+
+                //menu-items
+                
+                let div = document.createElement('div');
+                div.classList.add('single-menu');
+                div.setAttribute("data-name", `f-${i+1}`);
+
+                let imageUrl = document.createElement('img');
+                imageUrl.src = `${element.imageUrl}`;
+                document.body.appendChild(imageUrl);
+                
+                let smallDiv = document.createElement('div');
+                smallDiv.classList.add('food-content');
+
+                let mySpan = document.createElement('span');
+                mySpan.appendChild(document.createTextNode(`$${element.price}`));
+
+                let description = document.createElement('p');
+                description.appendChild(document.createTextNode(element.description));
+
+                let myTitle = document.createElement('h5');
+                myTitle.appendChild(document.createTextNode(element.name));
+
+
+
+ 
+                //overview items
+                let overView = document.getElementById('a');
+                        let div2 = document.createElement('div');
+                        div2.classList.add('overview-item');
+                        div2.setAttribute('data-target', `f-${i+1}`);
+
+
+                        let i1 = document.createElement('i');
+                        i1.classList.add("fa-solid");
+                        i1.classList.add("fa-xmark");
+                        i1.classList.add("special");
+
+                        let imgDiv = document.createElement('div');
+                        imgDiv.classList.add('myimg');
+
+                        let imgUrl = document.createElement('img');
+                        imgUrl.src = `${element.imageUrl}`;
+                        imgDiv.appendChild(imgUrl);
+
+                        let smallDiv2 = document.createElement('div');
+                        smallDiv2.classList.add('food-content');///////////////
+
+                        // create the form
+                                const form = document.createElement('form');
+
+                                // set the form attributes
+                                form.method = 'POST';
+                                form.action = `/cart/add`;
+
+                                // create the hidden input field
+                                const userIdInput = document.createElement('input');
+                                userIdInput.type = 'hidden';
+                                userIdInput.name = 'id';
+                                userIdInput.value = `${element._id}`;
+                                console.log(userIdInput.value);
+                                // create the submit button
+                                const submitButton = document.createElement('input');
+                                submitButton.type = 'submit';
+                                submitButton.value = 'Add To Cart';
+
+                                // append the input field and submit button to the form
+                                form.appendChild(userIdInput);
+                                form.appendChild(submitButton);
+
+                                // append the form to the document
+                                
+
+                                form.addEventListener('submit', (event) => {
+                                event.preventDefault();
+
+                                // Send form data to server
+                                       
+                                        // Get the selected menu item and quantity
+                                        var menuItem = `${element._id}`;
+                                        var quantity = 1;
+
+                                        
+                                        // Make an API call to add the item to the cart
+                                        var url = "http://localhost:3001/cart/add";
+                                        var Data = { menuItem: menuItem, quantity: quantity };
+                                        fetch(url, {
+                                            method: "POST",
+                                            headers: {
+                                            "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify(Data)
+                                        })
+                                            .then(res => alert("The item has been added. "))
+                                            .then (data => console.log(data))
+                                            .catch(err => console.log(err));
+                                    });  
+                                    
+                                    let h5 = document.createElement('h5');
+                                    h5.appendChild(document.createTextNode(`${element.name}`));
+
+                        let span = document.createElement('span');
+                        span.appendChild(document.createTextNode(`$${element.price}`));
+                        h5.appendChild(span);
+                        let p = document.createElement('p');
+                        p.classList.add("change-text");
+                        p.appendChild(document.createTextNode(`${element.description}`));
+
+                        let ul = document.createElement('ul');
+                        ul.classList.add('big');
+
+                        let part = document.createElement('div');
+                        let part2 = document.createElement('div');
+                        part.classList.add('part');
+                        part2.classList.add('part');
+
+                        let strong = document.createElement("strong");
+                        strong.appendChild(document.createTextNode("Made with: "));
+                        part.appendChild(strong);
+
+                        
+                        
+                        for (let j=0; j<element.ingredients.length; j++){
+                            let li = document.createElement('li');
+                            if(j<3) {
+                                li.appendChild(document.createTextNode(`${element.ingredients[j]}`));
+                                part.appendChild(li);
+                            }else{
+                                li.appendChild(document.createTextNode(`${element.ingredients[j]}`));
+                                part2.appendChild(li)
+                            }
+                            
+                        }
+                        
+                myTitle.appendChild(mySpan);
+                smallDiv.appendChild(myTitle);
+                smallDiv.appendChild(description)
+                div.appendChild(imageUrl);
+                div.appendChild(smallDiv);
+                target.appendChild(div);
+/////////////////////////////////////////////
+                        ul.appendChild(part);
+                        ul.appendChild(part2);
+                        
+                        smallDiv2.appendChild(h5);
+                        smallDiv2.appendChild(p);
+                        smallDiv2.appendChild(ul);
+                        smallDiv2.appendChild(form);    
+
+                        
+
+                        div2.appendChild(i1);
+                        div2.appendChild(imgDiv);
+                        div2.appendChild(smallDiv2);
+                        overView.appendChild(div2);
+            i=i+1;
+            console.log(i);
+           });
+           
+       }
+       getData();
+
+   </script>
+
+    <script src="js/shoppingCart.js"></script>
+    <script src="js/nav.js"></script>
+    <script defer src="js/menuOverview.js"></script>
+</body>
+</html>
